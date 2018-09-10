@@ -1,0 +1,26 @@
+{
+  "name": "knime-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "org.knime.dynamic.js",
+  "scripts": {
+    "test": "mocha js-test/**/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/KNIME/knime-js.git"
+  },
+  "author": "KNIME AG, Zurich, Switzerland <contact@knime.com>",
+  "license": "See https://www.knime.com/downloads/full-license",
+  "homepage": "https://www.knime.com/",
+  "devDependencies": {
+    "chai": "4.1.x",
+    "chalk": "2.4.x",
+    "mocha": "5.2.x",
+    "rfr": "1.2.x"
+  },
+  "engines": {
+    "node": "10.10.x"
+  }
+
+}
