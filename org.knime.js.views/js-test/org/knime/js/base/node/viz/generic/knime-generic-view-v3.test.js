@@ -46,15 +46,9 @@
 
 require('rfr')('js-test/test-util/setup');
 
-
 describe('KNIME generic view v3', () => {
 
-    let view;
-
-    before(() => {
-        view = requireLegacy('./js-src/org/knime/js/base/node/viz/generic/knime-generic-view-v3', 'knime_generic_view');
-    });
-
+    let view = requireLegacy('js-src/org/knime/js/base/node/viz/generic/knime-generic-view-v3', 'knime_generic_view');
 
     describe('API', () => {
         it('has public methods', () => {
@@ -68,5 +62,20 @@ describe('KNIME generic view v3', () => {
             });
         });
 
+        it('has no public attributes', () => {
+            Object.keys(view).filter(a => !/^_/.test(a)).forEach(key => {
+                let msg = `Unexpected public attribute "${key}". Use "_" to mark private fields, or use a closure.`;
+                expect(view[key], msg).to.be.a('function');
+            });
+
+        });
+    });
+
+    describe('SVG', () => {
+        it('returns null SVG code is invalid', () => {
+            view.init({jsSVGCode: '<nothing>'}, null);
+            console.log(view.getSVG());
+            expect(view.getSVG()).to.be.a('null');
+        });
     });
 });

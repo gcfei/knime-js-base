@@ -4,7 +4,8 @@
   "description": "",
   "main": "org.knime.dynamic.js",
   "scripts": {
-    "test": "mocha js-test/**/*.test.js"
+    "test": "mocha js-test/**/*.test.js",
+    "coverage": "nyc -a -n \"js-src/org/knime/js/base/node/**\" --hook-require=false --hook-run-in-context=true --hook-run-in-this-context=true --reporter=html --reporter=text npm test"
   },
   "repository": {
     "type": "git",
@@ -17,10 +18,11 @@
     "chai": "4.1.x",
     "chalk": "2.4.x",
     "mocha": "5.2.x",
+    "mocha-jsdom": "^2.0.0",
+    "nyc": "^13.0.1",
     "rfr": "1.2.x"
   },
   "engines": {
     "node": "10.10.x"
   }
-
 }

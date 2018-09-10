@@ -1,2 +1,4 @@
 /js-views.jar
 node_modules/
+.nyc_output/
+coverage/
