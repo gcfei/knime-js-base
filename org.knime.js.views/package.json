@@ -17,9 +17,10 @@
   "devDependencies": {
     "chai": "4.1.x",
     "chalk": "2.4.x",
+    "jsdom": "12.0.0",
+    "jsdom-global": "3.0.x",
     "mocha": "5.2.x",
-    "mocha-jsdom": "^2.0.0",
-    "nyc": "^13.0.1",
+    "nyc": "13.0.x",
     "rfr": "1.2.x"
   },
   "engines": {

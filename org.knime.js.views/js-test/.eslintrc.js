@@ -60,7 +60,7 @@ module.exports = {
         'no-console': 'off'
     },
     globals: {
-        requireLegacy: true,
+        loadInSandbox: true,
         chai: true,
         assert: true,
         expect: true

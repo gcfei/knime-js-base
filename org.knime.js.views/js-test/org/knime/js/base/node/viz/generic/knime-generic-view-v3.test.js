@@ -48,7 +48,8 @@ require('rfr')('js-test/test-util/setup');
 
 describe('KNIME generic view v3', () => {
 
-    let view = requireLegacy('js-src/org/knime/js/base/node/viz/generic/knime-generic-view-v3', 'knime_generic_view');
+
+    let {subject: view} = loadInSandbox('js-src/org/knime/js/base/node/viz/generic/knime-generic-view-v3', 'knime_generic_view');
 
     describe('API', () => {
         it('has public methods', () => {
@@ -72,10 +73,16 @@ describe('KNIME generic view v3', () => {
     });
 
     describe('SVG', () => {
-        it('returns null SVG code is invalid', () => {
-            view.init({jsSVGCode: '<nothing>'}, null);
-            console.log(view.getSVG());
-            expect(view.getSVG()).to.be.a('null');
+        let svg = '<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-.55 -.65 1.1 1" width="550px" height="500px" xmlns:xlink="http://www.w3.org/1999/xlink"><rect fill="white" x="-.55" y="-.65" width="1.1" height="1"/><path id="triangle" fill="none" stroke="#FFD800" stroke-width=".042" d="M0,-0.57735L-0.5,0.288675h1z"/><use xlink:href="#triangle" transform="scale(.85) rotate(-3.85)"/><use xlink:href="#triangle" transform="scale(.7) rotate(-9.25)"/><use xlink:href="#triangle" transform="scale(.575) rotate(-17.4)"/><use xlink:href="#triangle" transform="scale(.45) rotate(-30)"/></svg>';
+
+        it('returns generated SVG', () => {
+            view.init({jsSVGCode: `return '${svg}';`}, null);
+            expect(view.getSVG()).to.equal(svg);
+        });
+
+        it('returns null if SVG code is invalid', () => {
+            view.init({jsSVGCode: svg}, null);
+            expect(view.getSVG()).to.be.null;
         });
     });
 });

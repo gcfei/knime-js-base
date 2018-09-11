@@ -44,83 +44,10 @@
  * ---------------------------------------------------------------------
  */
 
-const vm = require('vm');
-const fs = require('fs');
-
-const chalk = require('chalk');
-const rfr = require('rfr');
-const jsdom = require('mocha-jsdom');
-
-
-let warn = text => console.warn(chalk.yellow(text));
-
-
-/**
- * Load legacy code that works by defining variables on the global namespace
- * @param {String} path The path to load, relative to the project root
- * @param {String} varName (optional) The name of the global variable to return.
- * @return {Object} If more than one global variable is created, the `varName` argument is required, and the loader uses
- *     it to determine the object to return. Otherwise this loader returns the value of the only global object created.
- * For example, if a script reads `foo = o1; bar = o2;`, then `requireLegacy('script', 'foo')` will return `o1`, and
- * `requireLegacy('script', 'bar')` will return `o2`.
- * If the script contains only `foo = o1`, then `requireLegacy('script')` will return `1`;
- */
-global.requireLegacy = (() => {
-    let additionalKeys = [];
-    let originalGlobal;
-    return (path, varName) => {
-        let resolvedPath = rfr.resolve(path);
-        let jsCode = fs.readFileSync(resolvedPath, 'utf-8');
-
-        // cleanup previous globals
-        additionalKeys.forEach(key => { delete global[key]; });
-        additionalKeys = [];
-
-        if (originalGlobal) {
-            Object.keys(originalGlobal).forEach(key => {
-                global[key] = originalGlobal[key];
-            });
-        } else {
-            originalGlobal = Object.assign({}, global);
-        }
-
-        vm.runInThisContext(jsCode, resolvedPath);
-
-        let logPath = path.replace(/^.\//, '').replace(/(\.js)?$/, '.js');
-        Object.keys(global).forEach(key => {
-            if (!originalGlobal.hasOwnProperty(key)) {
-                additionalKeys.push(key);
-            } else if (global[key] !== originalGlobal[key]) {
-                warn(`File ${logPath} overwrites global variable ${key}`);
-            }
-        });
-
-        // FIXME: filter out istanbul __coverage__ and cov_*
-
-        switch (additionalKeys.length) {
-        case 0:
-            throw new Error(`File ${logPath} defines no global variables`);
-        case 1:
-            return global[additionalKeys[0]];
-        default:
-            warn(`😱 File ${logPath} defines multiple global variables:\n• ${additionalKeys.sort().join('\n• ')}`);
-            if (varName && additionalKeys.includes(varName)) {
-                return global[varName];
-            }
-            return 'This method does not return anything. Use the global variable you want explicitly.';
-        }
-    };
-})();
+global.loadInSandbox = require('./loadInSandbox');
 
 // chai
 
 global.chai = require('chai');
 global.assert = global.chai.assert;
 global.expect = global.chai.expect;
-
-// jsdom
-
-jsdom({
-    url: 'http://dummy.example'
-});
-
