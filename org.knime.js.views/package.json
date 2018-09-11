@@ -1,11 +1,12 @@
 {
   "name": "knime-js",
   "version": "1.0.0",
-  "description": "",
-  "main": "org.knime.dynamic.js",
+  "description": "KNIME JavaScript Base Views",
+  "main": "",
   "scripts": {
     "test": "mocha js-test/**/*.test.js",
-    "coverage": "nyc -a -n \"js-src/org/knime/js/base/node/**\" --hook-require=false --hook-run-in-context=true --hook-run-in-this-context=true --reporter=html --reporter=text npm test"
+    "coverage": "nyc -a -n \"js-src/org/knime/js/base/node/**\" --hook-require=false --hook-run-in-context=true --hook-run-in-this-context=true --reporter=html --reporter=text --reporter=lcov npm test",
+    "sendcoverage": "cross-var sonar-scanner -Dsonar.login=$SONAR_TOKEN"
   },
   "repository": {
     "type": "git",
@@ -17,11 +18,13 @@
   "devDependencies": {
     "chai": "4.1.x",
     "chalk": "2.4.x",
+    "cross-var": "1.1.x",
     "jsdom": "12.0.0",
     "jsdom-global": "3.0.x",
     "mocha": "5.2.x",
     "nyc": "13.0.x",
-    "rfr": "1.2.x"
+    "rfr": "1.2.x",
+    "sonar-scanner": "3.1.x"
   },
   "engines": {
     "node": "10.10.x"
