@@ -44,12 +44,12 @@
  * ---------------------------------------------------------------------
  */
 
-
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 
 const chalk = require('chalk');
+const jsdomG = require('jsdom-global');
 const rfr = require('rfr');
 
 let istanbulFilter = name => !/^(__coverage__$|cov_)/.test(name);
@@ -61,8 +61,14 @@ let prepareSandbox = () => {
 
     let realGlobal = global;
     realGlobal.global = sandbox;
-    require('jsdom-global')();
+    jsdomG(void 0, {
+        url: 'http://test.example'
+    });
     realGlobal.global = realGlobal;
+
+    let jsDomWindow = sandbox.window;
+    Object.assign(sandbox, jsDomWindow);
+    sandbox.window = sandbox;
 
     vm.createContext(sandbox);
     return sandbox;
