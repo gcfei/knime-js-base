@@ -49,7 +49,7 @@ require('rfr')('js-test/test-util/setup');
 describe('KNIME generic view v3', () => {
 
 
-    let {subject: view} = loadInSandbox('js-src/org/knime/js/base/node/viz/generic/knime-generic-view-v3', 'knime_generic_view');
+    let {subject: view, window} = loadInSandbox(['js-src/org/knime/js/base/node/viz/generic/knime-generic-view-v3'], 'knime_generic_view');
 
     describe('API', () => {
         it('has public methods', () => {
@@ -69,6 +69,13 @@ describe('KNIME generic view v3', () => {
                 expect(view[key], msg).to.be.a('function');
             });
 
+        });
+    });
+
+    describe('init', () => {
+        it('renders an error message when no JS code is given', () => {
+            view.init({}, null);
+            expect(window.document.body.innerHTML).to.equal('Error: No script available.');
         });
     });
 
