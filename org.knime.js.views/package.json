@@ -17,6 +17,7 @@
   "homepage": "https://www.knime.com/",
   "devDependencies": {
     "chai": "4.1.x",
+    "chai-spies": "1.0.x",
     "chalk": "2.4.x",
     "cross-var": "1.1.x",
     "jsdom": "12.0.0",
@@ -28,5 +29,6 @@
   },
   "engines": {
     "node": "10.10.x"
-  }
+  },
+  "private": true
 }

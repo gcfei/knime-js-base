@@ -44,10 +44,13 @@
  * ---------------------------------------------------------------------
  */
 
-require('rfr')('js-test/test-util/setup');
+const {loadInSandbox, makeDummyTable} = require('rfr')('js-test/test-util/setup');
 
 describe('KNIME generic view v3', () => {
 
+    afterEach(() => {
+        chai.spy.restore();
+    });
 
     let {subject: view, window} = loadInSandbox([
         'js-test/test-util/mocks/knimeServiceMock',
@@ -79,7 +82,7 @@ describe('KNIME generic view v3', () => {
 
     describe('init', () => {
         it('renders an error message when no JS code is given', () => {
-            view.init({}, null);
+            view.init({}, {});
             expect(window.document.body.innerHTML).to.equal('Error: No script available.');
         });
 
@@ -89,6 +92,43 @@ describe('KNIME generic view v3', () => {
             }, {});
             setTimeout(() => {
                 expect(window.document.body.textContent).to.equal('Hello, World!');
+                done();
+            }, 10);
+        });
+
+        it('alerts on invalid JS code', done => {
+            chai.spy.on(window, 'alert', () => {});
+            view.init({
+                jsCode: 'not valid JS!'
+            }, {});
+            setTimeout(() => {
+                expect(window.alert).to.have.been.called();
+                done();
+            }, 10);
+        });
+
+        it('supports custom CSS', () => {
+            view.init({
+                jsCode: '//dummy;',
+                cssCode: '.foo {bar}'
+            }, {});
+            expect(window.document.head.innerHTML).to.match(/\.foo \{bar\}/);
+        });
+
+        it('loads table data', done => {
+            let setTableSpy = chai.spy();
+            chai.spy.on(window, 'kt', function () {
+                return {
+                    setDataTable: setTableSpy
+                };
+            });
+            let table = makeDummyTable(5, ['Number (double)', 'Number (double)', 'String']);
+            view.init({
+                jsCode: '//dummy;',
+                table
+            }, {});
+            setTimeout(() => {
+                expect(setTableSpy).to.have.been.called.with(table);
                 done();
             }, 10);
         });
@@ -104,6 +144,7 @@ describe('KNIME generic view v3', () => {
 
         it('returns null if SVG code is invalid', () => {
             view.init({jsSVGCode: svg}, null);
+            // eslint-disable-next-line no-unused-expressions
             expect(view.getSVG()).to.be.null;
         });
     });

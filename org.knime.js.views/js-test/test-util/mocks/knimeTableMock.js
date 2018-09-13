@@ -44,26 +44,30 @@
  * ---------------------------------------------------------------------
  */
 
-window.kt = () => ({
-    getCell: function () {},
-    getColumn: function () {},
-    getColumnNames: function () {},
-    getColumnTypes: function () {},
-    getExtension: function () {},
-    getFilterIds: function () {},
-    getKnimeColumnTypes: function () {},
-    getNumColumns: function () {},
-    getNumRows: function () {},
-    getPossibleValues: function () {},
-    getRow: function () {},
-    getRowColors: function () {},
-    getRows: function () {},
-    getTableId: function () {},
-    isRowIncludedInFilter: function () {},
-    registerView: function () {},
-    setDataTable: function () {},
-    setDataTableFromJSON: function () {},
-    setDataTableSpec: function () {},
-    setDataTableSpecFromJSON: function () {},
-    version: function () {}
-});
+window.kt = function () {
+    return {
+        getCell: function () {},
+        getColumn: function () {},
+        getColumnNames: function () {},
+        getColumnTypes: function () {},
+        getExtension: function () {},
+        getFilterIds: function () {},
+        getKnimeColumnTypes: function () {},
+        getNumColumns: function () {},
+        getNumRows: function () {},
+        getPossibleValues: function () {},
+        getRow: function () {},
+        getRowColors: function () {},
+        getRows: function () {},
+        getTableId: function () {},
+        isRowIncludedInFilter: function () {},
+        registerView: function () {},
+        setDataTable: function (table) {
+            window.___table = table
+        },
+        setDataTableFromJSON: function () {},
+        setDataTableSpec: function () {},
+        setDataTableSpecFromJSON: function () {},
+        version: function () {}
+    };
+};

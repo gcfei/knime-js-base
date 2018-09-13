@@ -44,10 +44,11 @@
  * ---------------------------------------------------------------------
  */
 
-global.loadInSandbox = require('./loadInSandbox');
-
-// chai
-
 global.chai = require('chai');
 global.assert = global.chai.assert;
 global.expect = global.chai.expect;
+
+chai.use(require('chai-spies'));
+
+module.exports.loadInSandbox = require('./loadInSandbox');
+module.exports.makeDummyTable = require('./makeDummyTable');

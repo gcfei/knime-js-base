@@ -57,7 +57,7 @@ let istanbulFilter = name => !/^(__coverage__$|cov_)/.test(name);
 let warn = message => console.warn(chalk.yellow(message));
 
 let prepareSandbox = () => {
-    let sandbox = Object.create(null);
+    let sandbox = {};
 
     let realGlobal = global;
     realGlobal.global = sandbox;

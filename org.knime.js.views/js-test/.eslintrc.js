@@ -57,7 +57,9 @@ module.exports = {
     },
     rules: {
         'max-len': 'off',
-        'no-console': 'off'
+        'no-console': 'off',
+        'no-empty-function': 'off',
+        'no-magic-numbers': 'off'
     },
     globals: {
         loadInSandbox: true,
