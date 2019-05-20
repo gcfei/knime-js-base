@@ -177,6 +177,14 @@ final class GenericJSViewNodeDialogPane extends NodeDialogPane {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean closeOnESC() {
+        return false;
+    }
+
+    /**
      * @return
      */
     private JPanel initLayout() {
@@ -286,6 +294,7 @@ final class GenericJSViewNodeDialogPane extends NodeDialogPane {
         m_cssTextArea.setText(config.getCssCode());
 
         m_cssTextArea.installAutoCompletion();
+        m_jsTextArea.installAutoCompletion();
     }
 
     private BiMap<String, String> getAvailableLibraries() {

@@ -220,6 +220,14 @@ final class GenericJSViewNodeDialogPane extends NodeDialogPane {
         addTab("Image Generation", initImageGenerationLayout());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean closeOnESC() {
+        return false;
+    }
+
     private JPanel initViewLayout() {
         JPanel wrapperPanel = new JPanel(new BorderLayout());
         wrapperPanel.setBorder(m_paddingBorder);
@@ -397,6 +405,7 @@ final class GenericJSViewNodeDialogPane extends NodeDialogPane {
         m_waitTimeSpinner.setValue(m_config.getWaitTime());
 
         m_cssTextArea.installAutoCompletion();
+        m_jsTextArea.installAutoCompletion();
 
         DataTableSpec spec = specs[0] == null ? new DataTableSpec() : (DataTableSpec)specs[0];
         m_outFieldsTable.updateData(m_config.getFieldCollection(), spec, getAvailableFlowVariables());

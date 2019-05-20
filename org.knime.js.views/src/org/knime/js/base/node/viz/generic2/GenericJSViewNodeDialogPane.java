@@ -190,6 +190,15 @@ final class GenericJSViewNodeDialogPane extends NodeDialogPane {
         addTab("Image Generation", initImageGenerationLayout());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean closeOnESC() {
+        return false;
+    }
+
+
     private JPanel initViewLayout() {
         JPanel wrapperPanel = new JPanel(new BorderLayout());
         wrapperPanel.setBorder(m_paddingBorder);
@@ -327,6 +336,7 @@ final class GenericJSViewNodeDialogPane extends NodeDialogPane {
         m_waitTimeSpinner.setValue(config.getWaitTime());
 
         m_cssTextArea.installAutoCompletion();
+        m_jsTextArea.installAutoCompletion();
     }
 
     private BiMap<String, String> getAvailableLibraries() {

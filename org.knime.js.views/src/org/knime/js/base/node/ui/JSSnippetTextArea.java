@@ -47,6 +47,7 @@
  */
 package org.knime.js.base.node.ui;
 
+import org.fife.rsta.ac.js.JavaScriptLanguageSupport;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 /**
@@ -55,6 +56,9 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
  */
 @SuppressWarnings("serial")
 public class JSSnippetTextArea extends RSyntaxTextArea {
+
+    final JavaScriptLanguageSupport m_jsLanguageSupport;
+
     /**
      *
      */
@@ -64,5 +68,14 @@ public class JSSnippetTextArea extends RSyntaxTextArea {
         setCodeFoldingEnabled(true);
         setSyntaxEditingStyle(SYNTAX_STYLE_JAVASCRIPT);
         setAntiAliasingEnabled(true);
+
+        m_jsLanguageSupport = new JavaScriptLanguageSupport();
+    }
+
+    /**
+     * This should be called prior to the consumer dialog being displayed.
+     */
+    public void installAutoCompletion() {
+        m_jsLanguageSupport.install(this);
     }
 }
