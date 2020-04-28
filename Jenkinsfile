@@ -10,7 +10,8 @@ properties([
 		upstream('knime-base/' + env.BRANCH_NAME.replaceAll('/', '%2F')),
 		upstream('knime-js-core/' + env.BRANCH_NAME.replaceAll('/', '%2F')),
 		upstream('knime-textprocessing/' + env.BRANCH_NAME.replaceAll('/', '%2F')),
-		upstream('knime-expressions/' + env.BRANCH_NAME.replaceAll('/', '%2F'))
+		upstream('knime-expressions/' + env.BRANCH_NAME.replaceAll('/', '%2F')),
+		upstream('knime-chromium/' + env.BRANCH_NAME.replaceAll('/', '%2F'))
 	]),
 	buildDiscarder(logRotator(numToKeepStr: '5')),
 	disableConcurrentBuilds()
