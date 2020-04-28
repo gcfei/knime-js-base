@@ -1,3 +1,3 @@
 \!/=
-/instance/org.knime.js.core/js.core.browserCliArgs=--no-sandbox
-/instance/org.knime.js.core/js.core.headlessBrowserCliArgs=--no-sandbox
+/instance/org.knime.js.core/js.core.browserCliArgs=--no-sandbox --verbose
+/instance/org.knime.js.core/js.core.headlessBrowserCliArgs=--no-sandbox --verbose
