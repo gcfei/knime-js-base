@@ -22,7 +22,7 @@ try {
     workflowTests.runTests(
         dependencies: [
             repositories: ['knime-js-base', 'knime-timeseries', 'knime-distance', 'knime-jep',
-			'knime-weka', 'knime-network', 'knime-xml', 'knime-datageneration',
+			'knime-weka', 'knime-network', 'knime-xml', 'knime-datageneration', 'knime-js-core',
 			'knime-chemistry', 'knime-chromium', 'knime-textprocessing'], // add knime-parquet after conversion
 			// ius: ['jp.co.infocom.cheminfo.marvin.feature']
         ]
